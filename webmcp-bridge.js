@@ -349,11 +349,132 @@ window.runStudioChain = async function () {
   if (dockBtn) dockBtn.textContent = "Run Agent ➔";
 };
 
+// Dedicated Chains for "Самый дорогой" (Luxury), "Самый лучший" (Ultimate Pro), and "До 500" (Budget Cap)
+window.runLuxuryFlagshipChain = async function () {
+  const dockBtn = document.getElementById("btnRunAgentPrompt");
+  if (dockBtn) dockBtn.textContent = "Agent Working...";
+  showAgentToast("🤖 [Step 1/3] Agent scanning catalog for top-tier flagship hardware...");
+  await new Promise(r => setTimeout(r, 600));
+
+  // Sort catalog by price descending and show all top items
+  window.StorefrontAPI.applySpecs({ maxPrice: 2500, inStockOnly: false });
+
+  showAgentToast("🤖 [Step 2/3] Verifying multi-tier synergy for $4,000+ ultimate rig...");
+  await new Promise(r => setTimeout(r, 700));
+  await document.modelContext.callTool("check_compatibility", {
+    productIds: ["mon-01", "ergo-01", "aud-03"]
+  });
+
+  const mon = PRODUCTS.find(p => p.id === "mon-01");
+  if (mon) mon.synergyBadge = "Flagship 5K Retina • 140W Host Hub";
+  const erg = PRODUCTS.find(p => p.id === "ergo-01");
+  if (erg) erg.synergyBadge = "Physician-Engineered Ergonomics";
+  const aud = PRODUCTS.find(p => p.id === "aud-03");
+  if (aud) aud.synergyBadge = "Spatial Audio Computational Engine";
+  renderProducts();
+
+  showAgentToast("🤖 [Step 3/3] Staging 3 flagship devices with VIP WebMCP discount (-15%)...");
+  await new Promise(r => setTimeout(r, 800));
+  await document.modelContext.callTool("stage_cart_and_apply_coupon", {
+    productIds: ["mon-01", "ergo-01", "aud-03"],
+    couponCode: "AGENT15"
+  });
+
+  const cartOverlay = document.getElementById("cartOverlay");
+  if (cartOverlay) cartOverlay.classList.add("open");
+  if (dockBtn) dockBtn.textContent = "Run Agent ➔";
+};
+
+window.runUltimateProChain = async function () {
+  const dockBtn = document.getElementById("btnRunAgentPrompt");
+  if (dockBtn) dockBtn.textContent = "Agent Working...";
+  showAgentToast("🤖 [Step 1/3] Curating the #1 developer & creator battle-station...");
+  await new Promise(r => setTimeout(r, 600));
+
+  window.StorefrontAPI.applySpecs({ maxPrice: 2500 });
+
+  showAgentToast("🤖 [Step 2/3] Validating 4-device hardware ecosystem...");
+  await new Promise(r => setTimeout(r, 700));
+  await document.modelContext.callTool("check_compatibility", {
+    productIds: ["mon-03", "kbd-02", "aud-02", "ergo-05"]
+  });
+
+  const m = PRODUCTS.find(p => p.id === "mon-03");
+  if (m) m.synergyBadge = "32-inch 4K QD-OLED • 240Hz";
+  const k = PRODUCTS.find(p => p.id === "kbd-02");
+  if (k) k.synergyBadge = "Topre Silent UNIX Actuation";
+  const a = PRODUCTS.find(p => p.id === "aud-02");
+  if (a) a.synergyBadge = "Dual ANC Processor Acoustics";
+  const mouse = PRODUCTS.find(p => p.id === "ergo-05");
+  if (mouse) mouse.synergyBadge = "MagSpeed 8K DPI Tracking";
+  renderProducts();
+
+  showAgentToast("🤖 [Step 3/3] Staging complete 4-item dream setup into cart...");
+  await new Promise(r => setTimeout(r, 800));
+  await document.modelContext.callTool("stage_cart_and_apply_coupon", {
+    productIds: ["mon-03", "kbd-02", "aud-02", "ergo-05"],
+    couponCode: "AGENT15"
+  });
+
+  const cartOverlay = document.getElementById("cartOverlay");
+  if (cartOverlay) cartOverlay.classList.add("open");
+  if (dockBtn) dockBtn.textContent = "Run Agent ➔";
+};
+
+window.runBudgetCapChain = async function (cap) {
+  const dockBtn = document.getElementById("btnRunAgentPrompt");
+  if (dockBtn) dockBtn.textContent = "Agent Working...";
+  showAgentToast(`🤖 [Step 1/3] Filtering all hardware under strict $${cap} cap...`);
+  await new Promise(r => setTimeout(r, 600));
+
+  // Show all products under cap
+  window.StorefrontAPI.filterCatalog({ query: "", category: "all", maxPrice: cap });
+
+  showAgentToast(`🤖 [Step 2/3] Assembling high-value ergonomic bundle under $${cap}...`);
+  await new Promise(r => setTimeout(r, 700));
+  
+  // Pick 2 high-synergy products fitting the cap
+  let bundle = [];
+  if (cap >= 450) {
+    bundle = ["kbd-01", "aud-02"]; // Keychron ($199) + Sony ($349) -> with 15% discount fits cap!
+  } else if (cap >= 300) {
+    bundle = ["kbd-01", "ergo-05"]; // Keychron ($199) + MX Master 3S ($99) = $298
+  } else {
+    bundle = ["kbd-04", "ergo-05"]; // NuPhy ($129) + MX Master ($99) = $228
+  }
+
+  await document.modelContext.callTool("check_compatibility", { productIds: bundle });
+  const kbd = PRODUCTS.find(p => p.id === bundle[0]);
+  if (kbd) kbd.synergyBadge = "Best Value Mechanical";
+  renderProducts();
+
+  showAgentToast(`🤖 [Step 3/3] Staging multi-item bundle under $${cap} with AGENT15...`);
+  await new Promise(r => setTimeout(r, 800));
+  await document.modelContext.callTool("stage_cart_and_apply_coupon", {
+    productIds: bundle,
+    couponCode: "AGENT15"
+  });
+
+  const cartOverlay = document.getElementById("cartOverlay");
+  if (cartOverlay) cartOverlay.classList.add("open");
+  if (dockBtn) dockBtn.textContent = "Run Agent ➔";
+};
+
 window.handleAgentPromptSubmit = function () {
   const input = document.getElementById("agentPromptInput");
   const q = (input ? input.value : "").trim().toLowerCase();
   
-  if (q.includes("game") || q.includes("gaming") || q.includes("oled") || q.includes("asus") || q.includes("игр") || q.includes("гейм")) {
+  // Extract number if user typed something like "до 500" or "under 300"
+  const numberMatch = q.match(/\d+/);
+  const detectedCap = numberMatch ? parseInt(numberMatch[0], 10) : null;
+
+  if (q.includes("дорог") || q.includes("expensive") || q.includes("luxury") || q.includes("максим") || q.includes("богат")) {
+    runLuxuryFlagshipChain();
+  } else if (q.includes("лучш") || q.includes("best") || q.includes("топ") || q.includes("top") || q.includes("идеал") || q.includes("рекоменд")) {
+    runUltimateProChain();
+  } else if (detectedCap || q.includes("до ") || q.includes("under") || q.includes("бюджет") || q.includes("budget") || q.includes("дешев")) {
+    runBudgetCapChain(detectedCap || 500);
+  } else if (q.includes("game") || q.includes("gaming") || q.includes("oled") || q.includes("asus") || q.includes("игр") || q.includes("гейм")) {
     runGamingChain();
   } else if (q.includes("mic") || q.includes("studio") || q.includes("audio") || q.includes("podcast") || q.includes("shure") || q.includes("звук") || q.includes("микрофон") || q.includes("стрим")) {
     runStudioChain();
@@ -362,6 +483,6 @@ window.handleAgentPromptSubmit = function () {
   } else if (q.includes("5k") || q.includes("display") || q.includes("monitor") || q.includes("chair") || q.includes("монитор") || q.includes("кресло")) {
     runAutonomousChain("executive_5k");
   } else {
-    runAutonomousChain("budget_ergo");
+    runBudgetCapChain(500);
   }
 };
