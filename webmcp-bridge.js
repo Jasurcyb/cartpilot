@@ -298,12 +298,68 @@ window.runAutonomousChain = async function (chainId) {
   if (dockBtn) dockBtn.textContent = "Run Agent ➔";
 };
 
+// Advanced Autonomous Chains & Natural Language Understanding (EN + RU)
+window.runGamingChain = async function () {
+  const dockBtn = document.getElementById("btnRunAgentPrompt");
+  if (dockBtn) dockBtn.textContent = "Agent Working...";
+  showAgentToast("🤖 [Step 1/3] Agent querying 240Hz OLED displays & Rapid Trigger keyboards...");
+  await new Promise(r => setTimeout(r, 600));
+  await document.modelContext.callTool("search_products", { query: "OLED", category: "all" });
+
+  showAgentToast("🤖 [Step 2/3] Validating 0.03ms esports response synergy...");
+  await new Promise(r => setTimeout(r, 700));
+  await document.modelContext.callTool("check_compatibility", { productIds: ["mon-03", "kbd-05"] });
+
+  const asus = PRODUCTS.find(p => p.id === "mon-03");
+  if (asus) asus.synergyBadge = "ASUS QD-OLED 240Hz • 0.03ms Response";
+  const woot = PRODUCTS.find(p => p.id === "kbd-05");
+  if (woot) woot.synergyBadge = "0.1mm Rapid Trigger • Hall Effect";
+  renderProducts();
+
+  showAgentToast("🤖 [Step 3/3] Staging Pro Gaming Rig and applying AGENT15...");
+  await new Promise(r => setTimeout(r, 800));
+  await document.modelContext.callTool("stage_cart_and_apply_coupon", { productIds: ["mon-03", "kbd-05"], couponCode: "AGENT15" });
+  const cartOverlay = document.getElementById("cartOverlay");
+  if (cartOverlay) cartOverlay.classList.add("open");
+  if (dockBtn) dockBtn.textContent = "Run Agent ➔";
+};
+
+window.runStudioChain = async function () {
+  const dockBtn = document.getElementById("btnRunAgentPrompt");
+  if (dockBtn) dockBtn.textContent = "Agent Working...";
+  showAgentToast("🤖 [Step 1/3] Agent querying XLR broadcast vocal setup...");
+  await new Promise(r => setTimeout(r, 600));
+  await document.modelContext.callTool("search_products", { query: "Shure", category: "all" });
+
+  showAgentToast("🤖 [Step 2/3] Checking +75dB preamp interface pairing...");
+  await new Promise(r => setTimeout(r, 700));
+  await document.modelContext.callTool("check_compatibility", { productIds: ["aud-04", "aud-05"] });
+
+  const shure = PRODUCTS.find(p => p.id === "aud-04");
+  if (shure) shure.synergyBadge = "Broadcast Standard XLR Cardioid";
+  const elgato = PRODUCTS.find(p => p.id === "aud-05");
+  if (elgato) elgato.synergyBadge = "75dB Clean Gain + Clipguard Interface";
+  renderProducts();
+
+  showAgentToast("🤖 [Step 3/3] Staging Broadcast Audio Bundle with AGENT15...");
+  await new Promise(r => setTimeout(r, 800));
+  await document.modelContext.callTool("stage_cart_and_apply_coupon", { productIds: ["aud-04", "aud-05"], couponCode: "AGENT15" });
+  const cartOverlay = document.getElementById("cartOverlay");
+  if (cartOverlay) cartOverlay.classList.add("open");
+  if (dockBtn) dockBtn.textContent = "Run Agent ➔";
+};
+
 window.handleAgentPromptSubmit = function () {
   const input = document.getElementById("agentPromptInput");
-  const query = (input ? input.value : "").trim().toLowerCase();
-  if (query.includes("silent") || query.includes("night") || query.includes("mac")) {
+  const q = (input ? input.value : "").trim().toLowerCase();
+  
+  if (q.includes("game") || q.includes("gaming") || q.includes("oled") || q.includes("asus") || q.includes("игр") || q.includes("гейм")) {
+    runGamingChain();
+  } else if (q.includes("mic") || q.includes("studio") || q.includes("audio") || q.includes("podcast") || q.includes("shure") || q.includes("звук") || q.includes("микрофон") || q.includes("стрим")) {
+    runStudioChain();
+  } else if (q.includes("silent") || q.includes("night") || q.includes("mac") || q.includes("тихий") || q.includes("мак") || q.includes("ночь")) {
     runAutonomousChain("silent_coder");
-  } else if (query.includes("5k") || query.includes("display") || query.includes("monitor") || query.includes("chair")) {
+  } else if (q.includes("5k") || q.includes("display") || q.includes("monitor") || q.includes("chair") || q.includes("монитор") || q.includes("кресло")) {
     runAutonomousChain("executive_5k");
   } else {
     runAutonomousChain("budget_ergo");
