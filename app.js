@@ -46,7 +46,7 @@ const PRODUCTS = [
   },
   {
     id: "mon-01",
-    name: "Dell UltraSharp 40" Curved 5K",
+    name: "Dell UltraSharp 40-inch Curved 5K",
     category: "display",
     price: 1799.00,
     emoji: "🖥️",
@@ -57,13 +57,24 @@ const PRODUCTS = [
   },
   {
     id: "mon-02",
-    name: "LG UltraGear 27" OLED 240Hz",
+    name: "LG UltraGear 27-inch OLED 240Hz",
     category: "display",
     price: 899.00,
     emoji: "🖥️",
     tag: "0.03ms Response",
     desc: "QHD OLED gaming panel featuring true 0.03ms response time and HDR1000 Micro Lens Array.",
     macOS: false,
+    inStock: true
+  },
+  {
+    id: "mon-03",
+    name: "ASUS ROG Swift 32-inch 4K OLED",
+    category: "display",
+    price: 1299.00,
+    emoji: "🖥️",
+    tag: "ROG Flagship",
+    desc: "32-inch 4K QD-OLED gaming monitor with 240Hz refresh rate, 0.03ms response time, and custom heatsink.",
+    macOS: true,
     inStock: true
   },
   {
