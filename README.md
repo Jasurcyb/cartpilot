@@ -67,6 +67,17 @@ document.modelContext.registerTool({
 
 ---
 
+## 🤖 Autonomous Multi-Tool Agent Chains & Live Synergy Badges
+
+Beyond single-function calls, CartPilot demonstrates **autonomous multi-step agent execution**. When given high-level compound objectives (e.g., *"Assemble a silent Mac coding setup under $1,000"*), the agent executes a structured multi-tool chain:
+
+1. `search_products` / `filter_by_specs`: Dynamically isolates silent tactile switches, high-refresh displays, and studio acoustics.
+2. `check_compatibility`: Performs real-time validation of host port bandwidth and 140W USB-C Power Delivery.
+3. **Reactive Synergy Badging**: Directly updates DOM cards with verified hardware badges (`✓ Topre Silent Capacitive • Mac Verified`, `✓ 140W Host PD & 5K Retina Synergy`).
+4. `stage_cart_and_apply_coupon`: Commits the bundle to the user's cart and applies promotional discounts (`AGENT15`).
+
+---
+
 ## 🚀 How to Test & Experience WebMCP
 
 ### Method 1: Google Chrome (Official WebMCP Testing Flag)

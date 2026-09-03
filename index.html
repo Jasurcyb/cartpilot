@@ -158,6 +158,26 @@
     </aside>
   </main>
 
+    <!-- Floating Agent Co-Pilot Bar (Bottom Fixed) -->
+  <div class="agent-dock-bar" id="agentDock">
+    <div class="dock-container">
+      <div class="dock-badge">
+        <span class="dock-pulse"></span>
+        <span>CartPilot Agent</span>
+      </div>
+      <div class="dock-input-wrap">
+        <input type="text" id="agentPromptInput" placeholder="Instruct agent (e.g. 'Silent Mac coding setup under $1000')..." />
+        <button id="btnRunAgentPrompt" class="dock-run-btn" onclick="handleAgentPromptSubmit()">Run Agent ➔</button>
+      </div>
+      <div class="dock-presets">
+        <span class="preset-label">1-Click Multi-Tool Chains:</span>
+        <button class="preset-pill" onclick="runAutonomousChain('silent_coder')">🌙 Silent Mac Coder</button>
+        <button class="preset-pill" onclick="runAutonomousChain('executive_5k')">🖥️ 5K Curved Studio</button>
+        <button class="preset-pill" onclick="runAutonomousChain('budget_ergo')">⚡ Budget Ergo &lt; $600</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Cart Drawer -->
   <div class="cart-drawer-overlay" id="cartOverlay">
     <div class="cart-drawer">

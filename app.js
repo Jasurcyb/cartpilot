@@ -220,6 +220,7 @@ function renderProducts() {
       <div class="product-info">
         <h3 class="product-name">${p.name}</h3>
         <p class="product-desc">${p.desc}</p>
+        ${p.synergyBadge ? `<div class="synergy-badge">✓ ${p.synergyBadge}</div>` : ''}
         <div class="product-meta">
           <span class="product-price">$${p.price.toFixed(2)}</span>
           <button class="add-btn" onclick="addToCart('${p.id}')">+ Add to Cart</button>

@@ -206,3 +206,109 @@ window.resetStorefront = function () {
   showAgentToast("Storefront filters and cart restored to default state.");
   logTelemetry("system", "Storefront reset completed.");
 };
+
+// Autonomous Multi-Tool Agent Chains
+window.runAutonomousChain = async function (chainId) {
+  const dockBtn = document.getElementById("btnRunAgentPrompt");
+  if (dockBtn) dockBtn.textContent = "Agent Working...";
+  
+  if (chainId === "silent_coder") {
+    showAgentToast("🤖 [Step 1/3] Agent querying low-noise hardware for macOS...");
+    await new Promise(r => setTimeout(r, 600));
+    await document.modelContext.callTool("search_products", {
+      query: "Topre",
+      category: "keyboard",
+      maxPrice: 600
+    });
+
+    showAgentToast("🤖 [Step 2/3] Agent running hardware compatibility analysis...");
+    await new Promise(r => setTimeout(r, 700));
+    const comp = await document.modelContext.callTool("check_compatibility", {
+      productIds: ["kbd-02", "aud-02"]
+    });
+    
+    // Attach synergy badges to cards
+    const kbd = PRODUCTS.find(p => p.id === "kbd-02");
+    if (kbd) kbd.synergyBadge = "Topre Silent Capacitive • Mac Verified";
+    const aud = PRODUCTS.find(p => p.id === "aud-02");
+    if (aud) aud.synergyBadge = "Dual ANC • 30hr Battery Synergy";
+    renderProducts();
+
+    showAgentToast("🤖 [Step 3/3] Staging bundle and applying WebMCP promo code (AGENT15)...");
+    await new Promise(r => setTimeout(r, 800));
+    await document.modelContext.callTool("stage_cart_and_apply_coupon", {
+      productIds: ["kbd-02", "aud-02"],
+      couponCode: "AGENT15"
+    });
+    
+    const cartOverlay = document.getElementById("cartOverlay");
+    if (cartOverlay) cartOverlay.classList.add("open");
+    showAgentToast("✨ Multi-step agent workflow completed! Silent Mac setup staged.");
+  }
+  else if (chainId === "executive_5k") {
+    showAgentToast("🤖 [Step 1/3] Filtering flagship curved displays and ergonomic seating...");
+    await new Promise(r => setTimeout(r, 600));
+    await document.modelContext.callTool("filter_by_specs", {
+      maxPrice: 2000,
+      inStockOnly: true,
+      macOSCompatible: true
+    });
+
+    showAgentToast("🤖 [Step 2/3] Validating 140W Thunderbolt 4 host power synergy...");
+    await new Promise(r => setTimeout(r, 700));
+    await document.modelContext.callTool("check_compatibility", {
+      productIds: ["mon-01", "ergo-01"]
+    });
+
+    const mon = PRODUCTS.find(p => p.id === "mon-01");
+    if (mon) mon.synergyBadge = "140W Host PD & 5K Retina Synergy";
+    const erg = PRODUCTS.find(p => p.id === "ergo-01");
+    if (erg) erg.synergyBadge = "Medical Ergonomic Distribution";
+    renderProducts();
+
+    showAgentToast("🤖 [Step 3/3] Staging executive workstation bundle...");
+    await new Promise(r => setTimeout(r, 800));
+    await document.modelContext.callTool("stage_cart_and_apply_coupon", {
+      productIds: ["mon-01", "ergo-01"],
+      couponCode: "AGENT15"
+    });
+    const cartOverlay = document.getElementById("cartOverlay");
+    if (cartOverlay) cartOverlay.classList.add("open");
+  }
+  else if (chainId === "budget_ergo") {
+    showAgentToast("🤖 [Step 1/3] Locating high-value gear under $600 cap...");
+    await new Promise(r => setTimeout(r, 600));
+    await document.modelContext.callTool("search_products", {
+      query: "Keychron",
+      category: "keyboard",
+      maxPrice: 300
+    });
+
+    const kbd = PRODUCTS.find(p => p.id === "kbd-01");
+    if (kbd) kbd.synergyBadge = "QMK/VIA Hot-Swap Certified";
+    renderProducts();
+
+    showAgentToast("🤖 [Step 2/2] Staging cart with student/dev discount...");
+    await new Promise(r => setTimeout(r, 700));
+    await document.modelContext.callTool("stage_cart_and_apply_coupon", {
+      productIds: ["kbd-01"],
+      couponCode: "AGENT15"
+    });
+    const cartOverlay = document.getElementById("cartOverlay");
+    if (cartOverlay) cartOverlay.classList.add("open");
+  }
+
+  if (dockBtn) dockBtn.textContent = "Run Agent ➔";
+};
+
+window.handleAgentPromptSubmit = function () {
+  const input = document.getElementById("agentPromptInput");
+  const query = (input ? input.value : "").trim().toLowerCase();
+  if (query.includes("silent") || query.includes("night") || query.includes("mac")) {
+    runAutonomousChain("silent_coder");
+  } else if (query.includes("5k") || query.includes("display") || query.includes("monitor") || query.includes("chair")) {
+    runAutonomousChain("executive_5k");
+  } else {
+    runAutonomousChain("budget_ergo");
+  }
+};
