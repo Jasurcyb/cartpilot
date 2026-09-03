@@ -3,6 +3,7 @@
 > **Where people and their AI browser agents shop together using the open WebMCP standard.**
 
 [![WebMCP Standard](https://img.shields.io/badge/W3C_Spec-WebMCP-06b6d4?style=for-the-badge)](https://webmachinelearning.github.io/webmcp/)
+[![Live Storefront](https://img.shields.io/badge/Live_Storefront-cartpilot--seven.vercel.app-06b6d4?style=for-the-badge&logo=vercel)](https://cartpilot-seven.vercel.app/)
 [![Chrome AI Flag](https://img.shields.io/badge/Chrome_Flag-enable--webmcp--testing-4285F4?style=for-the-badge&logo=googlechrome)](chrome://flags/#enable-webmcp-testing)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
