@@ -3,6 +3,7 @@ const PRODUCTS = [
   // --- Keyboards ---
   {
     id: "kbd-01",
+    image: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=600&q=80",
     name: "Keychron Q1 Pro Wireless",
     category: "keyboard",
     price: 199.00,
@@ -16,6 +17,7 @@ const PRODUCTS = [
   },
   {
     id: "kbd-02",
+    image: "https://images.unsplash.com/photo-1595225476474-87563907a212?auto=format&fit=crop&w=600&q=80",
     name: "HHKB Professional HYBRID Type-S",
     category: "keyboard",
     price: 320.00,
@@ -29,6 +31,7 @@ const PRODUCTS = [
   },
   {
     id: "kbd-03",
+    image: "https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?auto=format&fit=crop&w=600&q=80",
     name: "Logitech MX Mechanical Mini",
     category: "keyboard",
     price: 149.00,
@@ -42,6 +45,7 @@ const PRODUCTS = [
   },
   {
     id: "kbd-04",
+    image: "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?auto=format&fit=crop&w=600&q=80",
     name: "NuPhy Air75 V2 Ultra-Slim",
     category: "keyboard",
     price: 129.00,
@@ -55,6 +59,7 @@ const PRODUCTS = [
   },
   {
     id: "kbd-05",
+    image: "https://images.unsplash.com/photo-1541140532154-b024d705b909?auto=format&fit=crop&w=600&q=80",
     name: "Wooting 60HE+ Rapid Trigger",
     category: "keyboard",
     price: 175.00,
@@ -70,6 +75,7 @@ const PRODUCTS = [
   // --- Audio & Acoustics ---
   {
     id: "aud-01",
+    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80",
     name: "Sennheiser HD 660S2 Studio",
     category: "audio",
     price: 499.00,
@@ -83,6 +89,7 @@ const PRODUCTS = [
   },
   {
     id: "aud-02",
+    image: "https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&w=600&q=80",
     name: "Sony WH-1000XM5 Active ANC",
     category: "audio",
     price: 349.00,
@@ -96,6 +103,7 @@ const PRODUCTS = [
   },
   {
     id: "aud-03",
+    image: "https://images.unsplash.com/photo-1572536147248-ac59a8abfa4b?auto=format&fit=crop&w=600&q=80",
     name: "Apple AirPods Max",
     category: "audio",
     price: 549.00,
@@ -109,6 +117,7 @@ const PRODUCTS = [
   },
   {
     id: "aud-04",
+    image: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=600&q=80",
     name: "Shure SM7B Vocal Dynamic Mic",
     category: "audio",
     price: 399.00,
@@ -122,6 +131,7 @@ const PRODUCTS = [
   },
   {
     id: "aud-05",
+    image: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=600&q=80",
     name: "Elgato Wave XLR Audio Interface",
     category: "audio",
     price: 159.00,
@@ -137,6 +147,7 @@ const PRODUCTS = [
   // --- High-Refresh Displays ---
   {
     id: "mon-01",
+    image: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=600&q=80",
     name: "Dell UltraSharp 40-inch Curved 5K",
     category: "display",
     price: 1799.00,
@@ -150,6 +161,7 @@ const PRODUCTS = [
   },
   {
     id: "mon-02",
+    image: "https://images.unsplash.com/photo-1547082299-de196ea013d6?auto=format&fit=crop&w=600&q=80",
     name: "LG UltraGear 27-inch OLED 240Hz",
     category: "display",
     price: 899.00,
@@ -163,6 +175,7 @@ const PRODUCTS = [
   },
   {
     id: "mon-03",
+    image: "https://images.unsplash.com/photo-1585792180666-f7347c490ee2?auto=format&fit=crop&w=600&q=80",
     name: "ASUS ROG Swift 32-inch 4K OLED",
     category: "display",
     price: 1299.00,
@@ -176,6 +189,7 @@ const PRODUCTS = [
   },
   {
     id: "mon-04",
+    image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80",
     name: "Apple Studio Display 27-inch 5K",
     category: "display",
     price: 1599.00,
@@ -189,6 +203,7 @@ const PRODUCTS = [
   },
   {
     id: "mon-05",
+    image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=600&q=80",
     name: "BenQ ScreenBar Halo Desk Light",
     category: "display",
     price: 179.00,
@@ -204,6 +219,7 @@ const PRODUCTS = [
   // --- Ergonomic Setup & Docks ---
   {
     id: "ergo-01",
+    image: "https://images.unsplash.com/photo-1580481077194-e883984d5df3?auto=format&fit=crop&w=600&q=80",
     name: "Herman Miller Embody Gaming",
     category: "ergonomics",
     price: 1695.00,
@@ -217,6 +233,7 @@ const PRODUCTS = [
   },
   {
     id: "ergo-02",
+    image: "https://images.unsplash.com/photo-1505797149-43b0069ec26b?auto=format&fit=crop&w=600&q=80",
     name: "Steelcase Gesture Ergonomic Chair",
     category: "ergonomics",
     price: 1420.00,
@@ -230,6 +247,7 @@ const PRODUCTS = [
   },
   {
     id: "ergo-03",
+    image: "https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?auto=format&fit=crop&w=600&q=80",
     name: "Fully Jarvis Bamboo Standing Desk",
     category: "ergonomics",
     price: 749.00,
@@ -243,6 +261,7 @@ const PRODUCTS = [
   },
   {
     id: "ergo-04",
+    image: "https://images.unsplash.com/photo-1533090161767-e6ffed986b88?auto=format&fit=crop&w=600&q=80",
     name: "Grovemade Solid Walnut Desk Shelf",
     category: "ergonomics",
     price: 280.00,
@@ -256,6 +275,7 @@ const PRODUCTS = [
   },
   {
     id: "ergo-05",
+    image: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?auto=format&fit=crop&w=600&q=80",
     name: "Logitech MX Master 3S Mouse",
     category: "ergonomics",
     price: 99.00,
@@ -269,6 +289,7 @@ const PRODUCTS = [
   },
   {
     id: "ergo-06",
+    image: "https://images.unsplash.com/photo-1544652478-6653e09f18a2?auto=format&fit=crop&w=600&q=80",
     name: "CalDigit TS4 Thunderbolt 4 Dock",
     category: "ergonomics",
     price: 399.00,
@@ -427,9 +448,9 @@ function renderProducts() {
     card.className = "product-card";
     card.id = `card-${p.id}`;
     card.innerHTML = `
-      <div class="product-image">
+      <div class="product-image-container">
         <span class="product-tag">${p.tag}</span>
-        <span>${p.emoji}</span>
+        <img src="${p.image}" alt="${p.name}" class="product-real-img" loading="lazy" />
       </div>
       <div class="product-info">
         <h3 class="product-name">${p.name}</h3>
@@ -505,7 +526,7 @@ function updateCartUI() {
       const div = document.createElement("div");
       div.className = "cart-item";
       div.innerHTML = `
-        <span>${item.emoji}</span>
+        <img src="${item.image}" alt="${item.name}" class="cart-thumb-img" />
         <div class="cart-item-info">
           <div class="cart-item-title">${item.name}</div>
           <div class="cart-item-price">$${item.price.toFixed(2)}</div>
