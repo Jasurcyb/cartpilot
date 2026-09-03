@@ -580,6 +580,23 @@ function updateCartUI() {
   if (discountRow) {
     discountRow.style.display = appliedCoupon ? "flex" : "none";
   }
+
+  // Reflect coupon in input box and button
+  const couponInput = document.getElementById("couponInput");
+  const applyCouponBtn = document.getElementById("applyCouponBtn");
+  if (couponInput && applyCouponBtn) {
+    if (appliedCoupon) {
+      couponInput.value = appliedCoupon.code;
+      couponInput.style.borderColor = "#10b981";
+      applyCouponBtn.textContent = "Applied ✓";
+      applyCouponBtn.style.background = "#10b981";
+    } else {
+      couponInput.value = "";
+      couponInput.style.borderColor = "";
+      applyCouponBtn.textContent = "Apply";
+      applyCouponBtn.style.background = "";
+    }
+  }
 }
 
 function checkoutAction() {
