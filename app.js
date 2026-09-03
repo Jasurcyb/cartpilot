@@ -303,7 +303,7 @@ const PRODUCTS = [
   }
 ];
 
-// Active State
+// Active State with LocalStorage Persistence
 let currentCategory = "all";
 let currentMaxPrice = 2500;
 let currentInStockOnly = false;
@@ -311,6 +311,34 @@ let currentMacOnly = false;
 let currentSearchQuery = "";
 let cart = [];
 let appliedCoupon = null;
+
+function loadStoredState() {
+  try {
+    const savedCart = localStorage.getItem("cartpilot_cart");
+    if (savedCart) {
+      cart = JSON.parse(savedCart);
+    }
+    const savedCoupon = localStorage.getItem("cartpilot_coupon");
+    if (savedCoupon) {
+      appliedCoupon = JSON.parse(savedCoupon);
+    }
+  } catch (e) {
+    console.warn("Could not load stored state", e);
+  }
+}
+
+function saveStoredState() {
+  try {
+    localStorage.setItem("cartpilot_cart", JSON.stringify(cart));
+    if (appliedCoupon) {
+      localStorage.setItem("cartpilot_coupon", JSON.stringify(appliedCoupon));
+    } else {
+      localStorage.removeItem("cartpilot_coupon");
+    }
+  } catch (e) {
+    console.warn("Could not save state", e);
+  }
+}
 
 // Storefront API exposed for WebMCP Bridge
 window.StorefrontAPI = {
@@ -378,6 +406,7 @@ window.StorefrontAPI = {
     if (couponCode && couponCode.toUpperCase() === "AGENT15") {
       appliedCoupon = { code: "AGENT15", percent: 0.15 };
     }
+    saveStoredState();
     updateCartUI();
     return this.getCartSummary();
   },
@@ -405,6 +434,7 @@ window.StorefrontAPI = {
     cart = [];
     appliedCoupon = null;
     PRODUCTS.forEach(p => delete p.synergyBadge);
+    saveStoredState();
     renderProducts();
     updateCartUI();
     syncUIInputs();
@@ -495,6 +525,7 @@ function addToCart(productId) {
   const p = PRODUCTS.find(item => item.id === productId);
   if (p) {
     cart.push({ ...p });
+    saveStoredState();
     updateCartUI();
     const overlay = document.getElementById("cartOverlay");
     if (overlay) overlay.classList.add("open");
@@ -503,6 +534,7 @@ function addToCart(productId) {
 
 function removeFromCart(index) {
   cart.splice(index, 1);
+  saveStoredState();
   updateCartUI();
 }
 
@@ -564,6 +596,7 @@ function checkoutAction() {
 
 // Event Listeners
 document.addEventListener("DOMContentLoaded", () => {
+  loadStoredState();
   renderProducts();
   updateCartUI();
   if (typeof renderRegisteredTools === "function") {
@@ -643,6 +676,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const code = couponInput.value.trim().toUpperCase();
       if (code === "AGENT15") {
         appliedCoupon = { code: "AGENT15", percent: 0.15 };
+        saveStoredState();
         updateCartUI();
         alert("Coupon AGENT15 applied! 15% discount active.");
       } else {
