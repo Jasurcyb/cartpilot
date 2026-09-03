@@ -216,9 +216,8 @@ window.runAutonomousChain = async function (chainId) {
     showAgentToast("🤖 [Step 1/3] Agent querying low-noise hardware for macOS...");
     await new Promise(r => setTimeout(r, 600));
     await document.modelContext.callTool("search_products", {
-      query: "Topre",
-      category: "keyboard",
-      maxPrice: 600
+      query: "",
+      category: "all"
     });
 
     showAgentToast("🤖 [Step 2/3] Agent running hardware compatibility analysis...");
@@ -249,7 +248,6 @@ window.runAutonomousChain = async function (chainId) {
     showAgentToast("🤖 [Step 1/3] Filtering flagship curved displays and ergonomic seating...");
     await new Promise(r => setTimeout(r, 600));
     await document.modelContext.callTool("filter_by_specs", {
-      maxPrice: 2000,
       inStockOnly: true,
       macOSCompatible: true
     });
@@ -276,12 +274,11 @@ window.runAutonomousChain = async function (chainId) {
     if (cartOverlay) cartOverlay.classList.add("open");
   }
   else if (chainId === "budget_ergo") {
-    showAgentToast("🤖 [Step 1/3] Locating high-value gear under $600 cap...");
+    showAgentToast("🤖 [Step 1/3] Locating high-value gear with tactile switches...");
     await new Promise(r => setTimeout(r, 600));
     await document.modelContext.callTool("search_products", {
       query: "Keychron",
-      category: "keyboard",
-      maxPrice: 300
+      category: "all"
     });
 
     const kbd = PRODUCTS.find(p => p.id === "kbd-01");
