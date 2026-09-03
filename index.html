@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CartPilot — The Agent-Native WebMCP Storefront</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Header -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="brand">
+        <span class="brand-badge">WebMCP Native</span>
+        <span class="brand-logo">⚡ CartPilot</span>
+      </div>
+      <div class="nav-center">
+        <div class="search-bar">
+          <svg class="search-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="searchInput" placeholder="Search products (or ask your browser agent)...">
+        </div>
+      </div>
+      <div class="nav-actions">
+        <div class="agent-status-badge" id="agentStatusBadge">
+          <span class="pulse-dot"></span>
+          <span id="agentStatusText">WebMCP Listening</span>
+        </div>
+        <button class="cart-button" id="cartToggleBtn">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          <span class="cart-count" id="cartCountBadge">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main layout -->
+  <main class="main-container">
+    <!-- Filters & Categories -->
+    <aside class="sidebar">
+      <div class="sidebar-block">
+        <h3>Categories</h3>
+        <ul class="category-list" id="categoryList">
+          <li class="active" data-cat="all">All Products</li>
+          <li data-cat="audio">Audiophile & Acoustics</li>
+          <li data-cat="keyboard">Mechanical Keyboards</li>
+          <li data-cat="display">High-Refresh Monitors</li>
+          <li data-cat="ergonomics">Ergonomic Setup</li>
+        </ul>
+      </div>
+
+      <div class="sidebar-block">
+        <h3>Max Budget: <span id="priceDisplay">$1,500</span></h3>
+        <input type="range" id="priceRange" min="50" max="2500" step="50" value="1500">
+      </div>
+
+      <div class="sidebar-block">
+        <h3>Hardware Invariants</h3>
+        <div class="check-item">
+          <input type="checkbox" id="inStockCheck" checked>
+          <label for="inStockCheck">In Stock Only</label>
+        </div>
+        <div class="check-item">
+          <input type="checkbox" id="macCheck">
+          <label for="macCheck">macOS Compatible</label>
+        </div>
+      </div>
+
+      <div class="agent-tip-card">
+        <h4>🤖 WebMCP Agent Support</h4>
+        <p>Your browser agent has registered direct tools: <code>search_products</code>, <code>filter_by_specs</code>, <code>check_compatibility</code>, <code>stage_cart</code>.</p>
+      </div>
+    </aside>
+
+    <!-- Product Grid -->
+    <section class="catalog-section">
+      <div class="catalog-header">
+        <div>
+          <h1 id="sectionTitle">Hardware Catalog</h1>
+          <p class="subtitle" id="itemCount">Showing all items</p>
+        </div>
+        <div class="sort-selector">
+          <select id="sortSelect">
+            <option value="featured">Featured First</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Notification Banner for Agent Interactions -->
+      <div class="agent-toast-banner" id="agentBanner" style="display: none;">
+        <span class="agent-icon">🤖</span>
+        <div class="agent-message" id="agentBannerText">Agent action completed.</div>
+      </div>
+
+      <div class="products-grid" id="productsGrid">
+        <!-- Injected via JavaScript -->
+      </div>
+    </section>
+
+    <!-- WebMCP Live Inspector Panel (Right Drawer) -->
+    <aside class="webmcp-inspector">
+      <div class="inspector-header">
+        <div class="inspector-title">
+          <span class="live-dot"></span>
+          <span>WebMCP Tool Console</span>
+        </div>
+        <span class="spec-label">W3C / Chrome Spec</span>
+      </div>
+
+      <div class="inspector-section">
+        <p class="section-hint">Registered client tools in <code>document.modelContext</code>:</p>
+        <div class="registered-tools-list" id="registeredToolsList">
+          <!-- Tools loaded from bridge -->
+        </div>
+      </div>
+
+      <div class="inspector-section">
+        <div class="sim-header">
+          <span>Test WebMCP Tool Calls</span>
+        </div>
+        <div class="sim-buttons">
+          <button class="sim-btn" onclick="simulateAgentSearch()">
+            <span>⚡ "Find noise-canceling audio"</span>
+          </button>
+          <button class="sim-btn" onclick="simulateAgentCompatibility()">
+            <span>⚡ "Check Setup Compatibility"</span>
+          </button>
+          <button class="sim-btn" onclick="simulateAgentBundle()">
+            <span>⚡ "Stage Pro Dev Bundle (-15%)"</span>
+          </button>
+          <button class="sim-btn reset" onclick="resetStorefront()">
+            <span>↺ Reset Storefront</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="inspector-section flex-grow">
+        <div class="sim-header">
+          <span>Live Execution Telemetry</span>
+          <span class="clear-log" onclick="clearTelemetry()">Clear</span>
+        </div>
+        <div class="telemetry-log" id="telemetryLog">
+          <div class="log-entry system">[SYSTEM] WebMCP context initialized on window load.</div>
+          <div class="log-entry system">[SYSTEM] document.modelContext.registerTool active.</div>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Cart Drawer -->
+  <div class="cart-drawer-overlay" id="cartOverlay">
+    <div class="cart-drawer">
+      <div class="cart-header">
+        <h2>Your Staged Cart</h2>
+        <button class="close-btn" id="cartCloseBtn">&times;</button>
+      </div>
+      <div class="cart-items" id="cartItemsList">
+        <p class="empty-cart-msg">Your cart is empty. Pick items manually or let your AI agent stage a bundle.</p>
+      </div>
+      <div class="cart-footer">
+        <div class="coupon-box">
+          <input type="text" id="couponInput" placeholder="Coupon Code (try AGENT15)">
+          <button id="applyCouponBtn">Apply</button>
+        </div>
+        <div class="summary-line">
+          <span>Subtotal</span>
+          <span id="subtotalDisplay">$0.00</span>
+        </div>
+        <div class="summary-line discount" id="discountRow" style="display: none;">
+          <span>Discount (WebMCP Promo)</span>
+          <span id="discountDisplay">-$0.00</span>
+        </div>
+        <div class="summary-line total">
+          <span>Total</span>
+          <span id="totalDisplay">$0.00</span>
+        </div>
+        <button class="checkout-btn" id="checkoutBtn" onclick="checkoutAction()">Proceed to Checkout</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="webmcp-bridge.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
